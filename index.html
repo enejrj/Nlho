@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Олимпиада «Математика в экономике» | НЭТК</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #0F1218;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #EAEEF2;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+        :root {
+            --bg-dark: #0F1218;
+            --card-dark: #1A1F2A;
+            --card-hover: #222835;
+            --border-dim: #2A2F3A;
+            --text-light: #EAEEF2;
+            --text-muted: #9AA3B4;
+            --green-500: #2E7D64;
+            --green-600: #236B54;
+            --gold-accent: #D4AF37;
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+        
+        /* ШАПКА — ПОНИЖЕ И КОМПАКТНЕЕ */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 18, 24, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-dim);
+            padding: 0.6rem 0;
+        }
+        .header-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .logo-area-header { display: flex; align-items: center; gap: 0.8rem; }
+        .logo-place {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: #1A1F2A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .logo-place img { width: 100%; height: 100%; object-fit: cover; }
+        .college-name { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); line-height: 1.3; }
+        
+        .social-panel {
+            background: rgba(26, 31, 42, 0.8);
+            border-radius: 40px;
+            padding: 0.4rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .social-label { font-size: 0.7rem; font-weight: 500; color: var(--text-muted); }
+        .social-icons { display: flex; gap: 0.5rem; }
+        .social-icon {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: #2A2F3A;
+        }
+        .social-icon:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .social-icon.vk { background: #1E88E5; }
+        .social-icon.tg { background: #27A6E5; }
+        .social-icon svg { width: 14px; height: 14px; fill: white; }
+        
+        /* ГЕРОЙ С РАЗМЫТЫМ ФОНОМ */
+        .hero-blur {
+            position: relative;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://media.istockphoto.com/id/1447683142/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BC%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5-%D0%B2%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BD%D0%B0-%D0%B4%D0%BE%D1%81%D0%BA%D0%B5.jpg?s=170667a&w=0&k=20&c=lp73h1_5EKKoLb3a-RyGKJ3Ka0h5fURTUjP2XsYqEC4=');
+            background-size: cover;
+            background-position: center;
+            filter: blur(3px) brightness(0.35);
+            transform: scale(1.02);
+            z-index: 0;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 3rem 1.5rem;
+        }
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #FFF8E7, var(--gold-accent), #E8D594);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+        }
+        .hero-sub {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        /* КНОПКИ БЫСТРОЙ НАВИГАЦИИ */
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .quick-btn {
+            background: rgba(26, 31, 42, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--gold-accent);
+            padding: 0.7rem 1.5rem;
+            border-radius: 60px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .quick-btn:hover {
+            background: var(--gold-accent);
+            color: #0F1218;
+            transform: translateY(-2px);
+        }
+        
+        /* КАРТОЧКИ В ТЁМНЫХ ТОНАХ */
+        .card-dark {
+            background: var(--card-dark);
+            border-radius: 28px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-dim);
+            transition: all 0.3s ease;
+        }
+        .card-dark:hover { background: var(--card-hover); transform: translateY(-3px); }
+        .section-head {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--gold-accent);
+            color: var(--text-light);
+        }
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .info-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 1.25rem;
+            border: 1px solid var(--border-dim);
+        }
+        .info-card h3 { color: var(--gold-accent); margin-bottom: 0.75rem; font-size: 1.1rem; }
+        .info-card p, .info-card li { color: var(--text-muted); font-size: 0.9rem; }
+        .list-star { list-style: none; padding-left: 0; }
+        .list-star li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+        .list-star li::before { content: "✦"; color: var(--gold-accent); position: absolute; left: 0; }
+        
+        /* ПОДВАЛ — ВСЯ ОСТАЛЬНАЯ ИНФОРМАЦИЯ */
+        .footer-all {
+            background: #0A0D12;
+            border-radius: 28px 28px 0 0;
+            margin-top: 3rem;
+            padding: 2.5rem 2rem 2rem;
+            border-top: 1px solid var(--gold-accent);
+        }
+        .form-container {
+            background: var(--card-dark);
+            border-radius: 24px;
+            padding: 1.8rem;
+            margin: 1.5rem 0;
+        }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; font-weight: 500; font-size: 0.85rem; margin-bottom: 0.4rem; color: var(--text-muted); }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            background: #0F1218;
+            border: 1px solid var(--border-dim);
+            border-radius: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: white;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold-accent);
+        }
+        .submit-btn {
+            background: var(--green-500);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+        }
+        .submit-btn:hover { background: var(--green-600); transform: translateY(-2px); }
+        
+        .contact-footer {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+        }
+        .contact-block p { margin: 0.5rem 0; color: var(--text-muted); font-size: 0.85rem; }
+        .accent { color: var(--gold-accent); text-decoration: none; }
+        hr { border-color: var(--border-dim); margin: 1.5rem 0; }
+        
+        @media (max-width: 768px) {
+            .container { padding: 0 1rem; }
+            .hero-title { font-size: 2.5rem; }
+            .section-head { font-size: 1.3rem; }
+            .quick-btn { padding: 0.5rem 1rem; font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sticky-header">
+    <div class="header-container">
+        <div class="logo-area-header">
+            <div class="logo-place"><img src="https://static.ucheba.ru/pix/logo_cache/97909.upto100x100.png" alt="Логотип НЭТК"></div>
+            <div class="college-name">ЧПОУ «Нижегородский<br>экономико-технологический колледж»</div>
+        </div>
+        <div class="social-panel">
+            <span class="social-label">Мы в соцсетях</span>
+            <div class="social-icons">
+                <div class="social-icon vk" onclick="window.open('https://vk.com/netk_arzamas','_blank')"><svg viewBox="0 0 24 24"><path d="M21.579 6.855c.14-.465 0-.806-.662-.806h-2.193c-.557 0-.813.295-.953.62 0 0-1.115 2.719-2.695 4.486-.51.51-.742.673-1.02.673-.14 0-.34-.163-.34-.628V6.855c0-.557-.16-.806-.628-.806h-3.36c-.348 0-.558.258-.558.505 0 .53.79.652.87 2.144v3.235c0 .71-.128.84-.408.84-.742 0-2.546-2.726-3.617-5.846-.21-.597-.422-.835-.982-.835H3.518c-.627 0-.752.295-.752.62 0 .582.743 3.462 3.457 7.27 1.81 2.61 4.362 4.025 6.684 4.025 1.396 0 1.567-.314 1.567-.856v-1.98c0-.627.134-.84.572-.84.324 0 .882.163 2.182 1.416 1.486 1.486 1.73 2.15 2.567 2.15h2.193c.626 0 .94-.314.76-.93-.2-.62-.91-1.52-1.856-2.587-.51-.604-1.275-1.255-1.51-1.58-.325-.418-.232-.608 0-.98 0 0 2.67-3.773 2.947-5.05z"/></svg></div>
+                <div class="social-icon tg" onclick="window.open('https://t.me/netk_arzamas','_blank')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.11-.06-.16-.07-.05-.17-.03-.25-.02-.12.02-1.97 1.25-5.56 3.67-.53.36-1 .54-1.43.53-.47-.01-1.37-.27-2.04-.49-.82-.27-1.47-.42-1.41-.89.03-.25.38-.5.94-.76 2.06-.9 4.68-1.91 6.79-2.58 2.01-.64 3.66-.86 4.39-.62.61.2.44.99.21 1.86z"/></svg></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ГЕРОЙ С РАЗМЫТЫМ ФОНОМ И ЗАГОЛОВКОМ -->
+<section class="hero-blur">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">МАТЕМАТИКА<br>В ЭКОНОМИКЕ</h1>
+        <p class="hero-sub">Областная олимпиада для обучающихся 9 классов</p>
+        <div class="nav-buttons">
+            <button class="quick-btn" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">📖 Об олимпиаде</button>
+            <button class="quick-btn" onclick="document.getElementById('tasks').scrollIntoView({behavior:'smooth'})">🎯 Задачи</button>
+            <button class="quick-btn" onclick="document.getElementById('form').scrollIntoView({behavior:'smooth'})">📝 Заявка</button>
+            <button class="quick-btn" onclick="document.getElementById('contacts').scrollIntoView({behavior:'smooth'})">📞 Контакты</button>
+        </div>
+    </div>
+</section>
+
+<main class="container">
+    <!-- БЛОК ОБ ОЛИМПИАДЕ -->
+    <div id="about" class="card-dark">
+        <h2 class="section-head">📌 Об олимпиаде</h2>
+        <p style="margin-bottom: 1rem;">Нижегородский экономико-технологический колледж проводит областную олимпиаду для обучающихся 9 классов «Математика в экономике». Олимпиада направлена на развитие применения математических методов в решении прикладных экономических задач.</p>
+        <div class="grid-2col">
+            <div class="info-card"><h3>🎯 Цель</h3><p>Способствовать развитию применения математических методов в решении прикладных экономических задач.</p></div>
+            <div class="info-card"><h3>👥 Кто участвует?</h3><p>Обучающиеся 9 классов образовательных учреждений Нижегородской области. <strong>5 человек от школы</strong>. Участие бесплатное.</p></div>
+            <div class="info-card"><h3>📅 Дата и место</h3><p><strong>03 апреля 2025 года</strong><br>📍 г. Арзамас, пр-т Ленина, 200<br>⏰ Начало в 10:00</p></div>
+        </div>
+    </div>
+
+    <!-- ЗАДАЧИ -->
+    <div id="tasks" class="card-dark">
+        <h2 class="section-head">📋 Задачи олимпиады</h2>
+        <div class="grid-2col">
+            <div class="info-card"><ul class="list-star"><li>Формирование современного экономического мышления</li><li>Стимулирование интереса к социально-экономическим проблемам</li><li>Закрепление знаний, полученных на уроках экономики и математики</li></ul></div>
+            <div class="info-card"><ul class="list-star"><li>Повышение компетентности учителей</li><li>Выявление талантливых школьников</li><li>Профориентация на экономические и IT-специальности</li></ul></div>
+        </div>
+    </div>
+
+    <!-- ФОРМАТ ПРОВЕДЕНИЯ -->
+    <div class="card-dark">
+        <h2 class="section-head">🖥️ Формат проведения</h2>
+        <p>Олимпиада проводится в <strong>очной форме</strong>. С учетом эпидемиологической ситуации возможно <strong>дистанционное</strong> проведение.</p>
+        <div style="margin-top: 1rem; background: rgba(212,175,55,0.1); padding: 1rem; border-radius: 16px;">
+            <p>📧 Прием заявок до <strong>01 апреля 2025 года</strong> на электронный адрес: <strong style="color: var(--gold-accent);">labcoop@yandex.ru</strong></p>
+            <p style="margin-top: 0.5rem;">После подтверждения участники получают список тем по математике и экономике.</p>
+        </div>
+    </div>
+
+    <!-- НАГРАЖДЕНИЕ -->
+    <div class="card-dark">
+        <h2 class="section-head">🏆 Награждение</h2>
+        <div class="grid-2col">
+            <div class="info-card"><h3>📜 Все участники</h3><p>Именной сертификат участника</p></div>
+            <div class="info-card"><h3>🥇 Победители</h3><p>Дипломы I, II, III степени</p></div>
+        </div>
+        <p style="margin-top: 1rem;">Награждение и представление победителей будет проходить в форме онлайн-конференции.</p>
+    </div>
+</main>
+
+<!-- ПОДВАЛ — ВСЯ ОСТАЛЬНАЯ ИНФОРМАЦИЯ (форма, контакты, ссылки) -->
+<div class="footer-all" id="footer">
+    <div class="container">
+        <h2 class="section-head" style="color: var(--gold-accent);">📝 Заявка на участие</h2>
+        <div id="form" class="form-container">
+            <form action="https://formsubmit.co/labcoop@yandex.ru" method="POST">
+                <input type="hidden" name="_subject" value="Заявка на олимпиаду Математика в экономике">
+                <input type="hidden" name="_captcha" value="false">
+                <div class="form-group"><label>Фамилия, имя, отчество участника *</label><input type="text" name="fio" required></div>
+                <div class="form-group"><label>Класс *</label><input type="text" name="class" required></div>
+                <div class="form-group"><label>Телефон участника *</label><input type="tel" name="phone" required></div>
+                <div class="form-group"><label>E-mail участника *</label><input type="email" name="email" required></div>
+                <div class="form-group"><label>Образовательная организация (полное название) *</label><input type="text" name="school" required></div>
+                <div class="form-group"><label>ФИО руководителя (преподавателя) *</label><input type="text" name="teacher" required></div>
+                <div class="form-group"><label>Телефон / e-mail руководителя *</label><input type="text" name="teacher_contact" required></div>
+                <div class="form-group"><label>Форма участия *</label><select name="format"><option>очная</option><option>заочная (дистанционная)</option></select></div>
+                <button type="submit" class="submit-btn">✉️ Отправить заявку</button>
+            </form>
+        </div>
+        
+        <div id="contacts" class="contact-footer">
+            <div class="contact-block">
+                <h3 style="color: var(--gold-accent); margin-bottom: 1rem;">📞 Контакты оргкомитета</h3>
+                <p><strong>Грачева Ольга Владимировна</strong> — 8(83147)71432</p>
+                <p><strong>Мельников Владимир Александрович</strong> — <a href="tel:+79047853491" class="accent">+7-904-785-34-91</a></p>
+                <p><strong>Низаметдинова Татьяна Ильинична</strong> — <a href="tel:+79875304362" class="accent">+7-987-530-43-62</a></p>
+            </div>
+            <div class="contact-block">
+                <h3 style="color: var(--gold-accent); margin-bottom: 1rem;">📍 Адрес и почта</h3>
+                <p>г. Арзамас, пр-т Ленина, д. 200</p>
+                <p>E-mail: <a href="mailto:labcoop@yandex.ru" class="accent">labcoop@yandex.ru</a></p>
+                <p>Группа ВК: <a href="#" class="accent" onclick="window.open('https://vk.com/netk_arzamas','_blank')">НЭТК Арзамас</a></p>
+            </div>
+            <div class="contact-block">
+                <h3 style="color: var(--gold-accent); margin-bottom: 1rem;">📌 Важно</h3>
+                <p>Заявки принимаются <strong>до 01 апреля 2025</strong></p>
+                <p>Список тем высылается после регистрации</p>
+                <p>Участие бесплатное</p>
+            </div>
+        </div>
+        <hr>
+        <div style="text-align: center; font-size: 0.7rem; color: var(--text-muted);">
+            © ЧПОУ «Нижегородский экономико-технологический колледж» | Олимпиада «Математика в экономике» — 2025
+        </div>
+    </div>
+</div>
+
+<script>
+    // Плавное появление карточек
+    const cards = document.querySelectorAll('.card-dark');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'all 0.5s ease';
+        observer.observe(card);
+    });
+</script>
+</body>
+</html>
